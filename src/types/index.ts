@@ -360,6 +360,9 @@ export interface CategoryRepository {
   list(): Promise<Category[]>
   getBySlug(slug: string): Promise<Category | null>
   getById(id: string): Promise<Category | null>
+  getChildren(parentId: string): Promise<Category[]>
+  getTopLevel(): Promise<Category[]>
+  getAncestors(categoryId: string): Promise<Category[]>
 }
 
 export interface OrderRepository {

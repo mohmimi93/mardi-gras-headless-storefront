@@ -28,7 +28,7 @@ export function RecentlyViewed({ excludeProductId }: RecentlyViewedProps) {
         {items.map((item) => (
           <Link
             key={item.productId}
-            href={`/${item.slug}`}
+            href={`/product/${item.slug}`}
             className="group shrink-0"
           >
             <div className="relative h-32 w-32 overflow-hidden rounded-lg bg-neutral-100">

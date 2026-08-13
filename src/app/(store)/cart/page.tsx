@@ -10,6 +10,7 @@ import { useCartStore } from "@/store/cart"
 import { CartItem } from "@/components/cart/cart-item"
 import { CartSummary } from "@/components/cart/cart-summary"
 import { useEffect, useState } from "react"
+import { siteConfig } from "@/lib/config"
 
 export default function CartPage() {
   const items = useCartStore((s) => s.items)
@@ -54,9 +55,15 @@ export default function CartPage() {
         <Separator className="my-6" />
         <CartSummary subtotal={subtotal} />
         <div className="mt-8 flex flex-col gap-3">
-          <Button size="lg" asChild>
-            <Link href="/checkout">Proceed to Checkout</Link>
-          </Button>
+          {siteConfig.features.checkout ? (
+            <Button size="lg" asChild>
+              <Link href="/checkout">Proceed to Checkout</Link>
+            </Button>
+          ) : (
+            <Button size="lg" disabled>
+              Checkout coming next
+            </Button>
+          )}
           <Button variant="outline" asChild>
             <Link href="/shop">Continue Shopping</Link>
           </Button>

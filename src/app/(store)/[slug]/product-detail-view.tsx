@@ -115,8 +115,8 @@ export function ProductDetailView({
 
   const breadcrumbLd = breadcrumbJsonLd([
     { name: "Shop", href: "/shop" },
-    ...categoryAncestors.map((c) => ({ name: c.name, href: `/${c.slug}` })),
-    { name: product.name, href: `/${product.slug}` },
+    ...categoryAncestors.map((c) => ({ name: c.name, href: `/category/${c.slug}` })),
+    { name: product.name, href: `/product/${product.slug}` },
   ])
 
   const jsonLd = {
@@ -163,7 +163,7 @@ export function ProductDetailView({
                   {isLast ? (
                     <BreadcrumbPage>{cat.name}</BreadcrumbPage>
                   ) : (
-                    <BreadcrumbLink render={<Link href={`/${cat.slug}`} />}>
+                    <BreadcrumbLink render={<Link href={`/category/${cat.slug}`} />}>
                       {cat.name}
                     </BreadcrumbLink>
                   )}

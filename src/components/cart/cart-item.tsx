@@ -24,7 +24,7 @@ export function CartItem({ item }: CartItemProps) {
     <div className="flex gap-4 py-4">
       {/* Image */}
       <Link
-        href={`/${item.slug}`}
+        href={`/product/${item.slug}`}
         className="relative h-16 w-16 shrink-0 overflow-hidden rounded-md bg-neutral-100 sm:h-20 sm:w-20"
       >
         <Image
@@ -42,7 +42,7 @@ export function CartItem({ item }: CartItemProps) {
         <div className="flex justify-between gap-2">
           <div className="min-w-0">
             <Link
-              href={`/${item.slug}`}
+              href={`/product/${item.slug}`}
               className="block truncate text-sm font-medium hover:underline"
             >
               {item.name}

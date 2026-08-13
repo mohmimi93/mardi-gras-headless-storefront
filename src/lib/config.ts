@@ -5,20 +5,20 @@
 
 export const siteConfig = {
   // Branding
-  name: "Next.js Ecommerce Starter",
-  tagline: "A free, open-source Next.js ecommerce template.",
+  name: "Mardi Gras Apparel",
+  tagline: "Mardi Gras style for the whole family.",
   description:
-    "A free, production-ready Next.js ecommerce starter template built with Tailwind CSS and shadcn/ui. Responsive, accessible, SEO optimized, and ready to connect to any checkout system. Built by Epic Design Labs.",
+    "Shop Mardi Gras dresses, polos, hoodies, shirts, infant apparel, and more.",
 
   // Announcement bar (set to "" to hide)
-  announcement: "Free shipping on all orders over $75 — Shop now!",
+  announcement: "Free shipping on qualifying orders — Shop now!",
 
   // URLs
   url: process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000",
 
   // Contact
   contact: {
-    email: "support@epicdesignlabs.com",
+    email: "",
     phone: "",
     address: {
       street: "",
@@ -31,9 +31,9 @@ export const siteConfig = {
 
   // Social links (set to "" to hide)
   social: {
-    twitter: "https://x.com/epicdesignlabs",
-    instagram: "https://instagram.com/epicdesignlabs",
-    facebook: "https://facebook.com/epicdesignlabs",
+    twitter: "",
+    instagram: "",
+    facebook: "",
     youtube: "",
     tiktok: "",
   },
@@ -45,6 +45,12 @@ export const siteConfig = {
   // Currency & locale
   currency: "USD",
   locale: "en-US",
+
+  // Enabled as the matching Odoo APIs are completed.
+  features: {
+    checkout: false,
+    customerAccounts: false,
+  },
 
   // Legal
   copyrightYear: new Date().getFullYear(),

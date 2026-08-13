@@ -10,11 +10,10 @@ import {
   SheetTitle,
   SheetFooter,
 } from "@/components/ui/sheet"
-import { Separator } from "@/components/ui/separator"
 import { CartItem } from "./cart-item"
-import { CartSummary } from "./cart-summary"
 import { useCartStore } from "@/store/cart"
 import { formatPrice } from "@/lib/utils"
+import { siteConfig } from "@/lib/config"
 
 export function CartDrawer() {
   const items = useCartStore((s) => s.items)
@@ -78,9 +77,15 @@ export function CartDrawer() {
                 <p className="text-xs text-muted-foreground">
                   Shipping and taxes calculated at checkout.
                 </p>
-                <Button className="w-full" size="lg" asChild onClick={closeCart}>
-                  <Link href="/checkout">Checkout</Link>
-                </Button>
+                {siteConfig.features.checkout ? (
+                  <Button className="w-full" size="lg" asChild onClick={closeCart}>
+                    <Link href="/checkout">Checkout</Link>
+                  </Button>
+                ) : (
+                  <Button className="w-full" size="lg" disabled>
+                    Checkout coming next
+                  </Button>
+                )}
                 <button
                   className="mb-4 w-full py-2 text-center text-sm text-muted-foreground underline hover:text-foreground sm:mb-0 sm:hidden"
                   onClick={closeCart}

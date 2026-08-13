@@ -42,7 +42,7 @@ export function CategoryView({
   // Full ancestor trail for breadcrumbs — e.g. Shop > Electronics > Headphones
   const trail = [
     { name: "Shop", href: "/shop" },
-    ...ancestors.map((c) => ({ name: c.name, href: `/${c.slug}` })),
+    ...ancestors.map((c) => ({ name: c.name, href: `/category/${c.slug}` })),
   ]
 
   return (
@@ -68,7 +68,7 @@ export function CategoryView({
                   {isLast ? (
                     <BreadcrumbPage>{cat.name}</BreadcrumbPage>
                   ) : (
-                    <BreadcrumbLink render={<Link href={`/${cat.slug}`} />}>
+                    <BreadcrumbLink render={<Link href={`/category/${cat.slug}`} />}>
                       {cat.name}
                     </BreadcrumbLink>
                   )}
@@ -97,7 +97,7 @@ export function CategoryView({
           {subcategories.map((sub) => (
             <Link
               key={sub.id}
-              href={`/${sub.slug}`}
+              href={`/category/${sub.slug}`}
               className="rounded-full border border-border px-3 py-1 text-xs font-medium transition-colors hover:border-foreground"
             >
               {stripParentPrefix(sub.name, category.name)}
@@ -115,7 +115,7 @@ export function CategoryView({
       <div className="mt-12">
         <Pagination
           pagination={pagination}
-          basePath={`/${category.slug}`}
+          basePath={`/category/${category.slug}`}
         />
       </div>
     </div>

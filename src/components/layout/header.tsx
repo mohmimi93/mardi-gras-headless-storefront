@@ -12,10 +12,10 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { SearchModal } from "@/components/search/search-modal"
 import { cn } from "@/lib/utils"
-import { shopLinks, mobileMenuSections } from "@/lib/navigation"
+import { mobileMenuSections } from "@/lib/navigation"
 import { siteConfig } from "@/lib/config"
 import { useTranslations } from "next-intl"
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect } from "react"
 import type { Category } from "@/types"
 import { useCartStore } from "@/store/cart"
 import { useAuthStore } from "@/store/auth"
@@ -28,6 +28,20 @@ interface HeaderProps {
 
 export function Header({ categories = [] }: HeaderProps) {
   const allCategories = categories
+  const topCategories = allCategories
+    .filter((category) => !category.parentId)
+    .slice(0, 6)
+  const shopItems = [
+    { name: "Shop All", href: "/shop" },
+    ...topCategories.map((category) => ({
+      name: category.name,
+      href: `/category/${category.slug}`,
+    })),
+  ]
+  const menuSections = [
+    { label: "Shop", items: shopItems },
+    ...mobileMenuSections,
+  ]
   const t = useTranslations("nav")
   const tCommon = useTranslations("common")
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -80,7 +94,7 @@ export function Header({ categories = [] }: HeaderProps) {
             </div>
 
             <nav className="flex flex-1 flex-col overflow-y-auto px-6 pb-8">
-              {mobileMenuSections.map((section, sectionIdx) => (
+              {menuSections.map((section, sectionIdx) => (
                 <div key={section.label}>
                   {sectionIdx > 0 && <div className="my-4 border-t" />}
                   <p className="mb-2 mt-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
@@ -88,7 +102,7 @@ export function Header({ categories = [] }: HeaderProps) {
                   </p>
                   <div className="ml-3">
                   {section.items.map((item) => {
-                    const slug = item.href.replace("/", "")
+                    const slug = item.href.replace("/category/", "")
                     const parentCat = allCategories.find((c) => c.slug === slug)
                     const subcats = parentCat
                       ? allCategories.filter((c) => c.parentId === parentCat.id)
@@ -122,7 +136,7 @@ export function Header({ categories = [] }: HeaderProps) {
                             {subcats.map((sub) => (
                               <Link
                                 key={sub.id}
-                                href={`/${sub.slug}`}
+                                href={`/category/${sub.slug}`}
                                 className="py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
                                 onClick={() => setMobileMenuOpen(false)}
                               >
@@ -148,7 +162,7 @@ export function Header({ categories = [] }: HeaderProps) {
 
         {/* Desktop nav */}
         <nav className="hidden lg:flex lg:gap-6">
-          {shopLinks.map((item) => (
+          {shopItems.map((item) => (
             <Link
               key={item.name}
               href={item.href}
@@ -178,7 +192,7 @@ export function Header({ categories = [] }: HeaderProps) {
           </Link>
 
           {/* User menu — desktop only */}
-          {mounted && isAuthenticated ? (
+          {siteConfig.features.customerAccounts && (mounted && isAuthenticated ? (
             <DropdownMenu>
               <DropdownMenuTrigger
                 className="hidden h-10 w-10 items-center justify-center rounded-md hover:bg-accent lg:inline-flex"
@@ -218,7 +232,7 @@ export function Header({ categories = [] }: HeaderProps) {
             >
               <User className="h-5 w-5" />
             </Link>
-          )}
+          ))}
 
           {/* Cart */}
           <button
